@@ -1,0 +1,116 @@
+.contenedor {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: #24458f;
+  margin: 0;
+}
+
+.btn-cerrar-sesion {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  background: #24458f;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-cerrar-sesion:hover {
+  opacity: 0.9;
+}
+
+.formulario {
+  background: #f4f6f9;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+.formulario h2 {
+  margin-top: 0;
+  color: #24458f;
+}
+
+.formulario form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.formulario input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formulario button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  background: #24458f;
+  color: white;
+  cursor: pointer;
+}
+
+.formulario button:hover {
+  opacity: 0.9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #24458f;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.btn-editar {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background: #24458f;
+  color: white;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.btn-editar:hover {
+  opacity: 0.9;
+}
+
+.btn-eliminar {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background: #c62828;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  opacity: 0.9;
+}

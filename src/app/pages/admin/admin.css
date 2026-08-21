@@ -1,0 +1,33 @@
+.contenedor {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #24458f;
+  margin-bottom: 30px;
+}
+
+.tarjeta {
+  background-color: #f4f6f9;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.tarjeta h2 {
+  color: #24458f;
+}
+
+.tarjeta button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #24458f;
+  color: white;
+  cursor: pointer;
+}
+
+.tarjeta button:hover {
+  opacity: 0.9;
+}

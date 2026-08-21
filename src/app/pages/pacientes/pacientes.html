@@ -1,0 +1,125 @@
+<div class="contenedor">
+
+  <div class="encabezado">
+    <h1>Gestión de Pacientes</h1>
+
+    <button
+      type="button"
+      class="btn-cerrar-sesion"
+      (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </div>
+
+  @if (esAdmin) {
+    <div class="formulario">
+      <h2>{{ editando ? 'Editar Paciente' : 'Nuevo Paciente' }}</h2>
+
+      <form (ngSubmit)="guardarPaciente()">
+
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          [(ngModel)]="nuevoPaciente.nombre"
+          required
+        />
+
+        <input
+          type="text"
+          name="apellido"
+          placeholder="Apellido"
+          [(ngModel)]="nuevoPaciente.apellido"
+          required
+        />
+
+        <input
+          type="number"
+          name="edad"
+          placeholder="Edad"
+          [(ngModel)]="nuevoPaciente.edad"
+          required
+        />
+
+        <input
+          type="text"
+          name="telefono"
+          placeholder="Teléfono"
+          [(ngModel)]="nuevoPaciente.telefono"
+          required
+        />
+
+        <button type="submit">
+          {{ editando ? 'Actualizar Paciente' : 'Guardar Paciente' }}
+        </button>
+
+        @if (editando) {
+          <button
+            type="button"
+            class="btn-cancelar"
+            (click)="cancelarEdicion()">
+            Cancelar
+          </button>
+        }
+
+      </form>
+    </div>
+  }
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Edad</th>
+        <th>Teléfono</th>
+
+        @if (esAdmin) {
+          <th>Acciones</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+
+      @for (paciente of pacientes; track paciente.id) {
+
+        <tr>
+
+          <td>{{ paciente.id }}</td>
+          <td>{{ paciente.nombre }}</td>
+          <td>{{ paciente.apellido }}</td>
+          <td>{{ paciente.edad }}</td>
+          <td>{{ paciente.telefono }}</td>
+
+          @if (esAdmin) {
+            <td>
+
+              <button
+                type="button"
+                class="btn-editar"
+                (click)="editarPaciente(paciente)">
+                Editar
+              </button>
+
+              <button
+                type="button"
+                class="btn-eliminar"
+                (click)="eliminarPaciente(paciente.id!)">
+                Eliminar
+              </button>
+
+            </td>
+          }
+
+        </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+</div>
