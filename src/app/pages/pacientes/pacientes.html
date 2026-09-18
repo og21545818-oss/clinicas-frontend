@@ -1,125 +1,497 @@
-<div class="contenedor">
+<div class="pagina">
 
-  <div class="encabezado">
-    <h1>Gestión de Pacientes</h1>
+  <!-- BOTÓN HAMBURGER -->
+  <button
+    type="button"
+    class="btn-hamburger"
+    (click)="alternarMenu()"
+    aria-label="Abrir o cerrar menú">
+    ☰
+  </button>
 
-    <button
-      type="button"
-      class="btn-cerrar-sesion"
-      (click)="cerrarSesion()">
-      Cerrar sesión
-    </button>
-  </div>
-
-  @if (esAdmin) {
-    <div class="formulario">
-      <h2>{{ editando ? 'Editar Paciente' : 'Nuevo Paciente' }}</h2>
-
-      <form (ngSubmit)="guardarPaciente()">
-
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          [(ngModel)]="nuevoPaciente.nombre"
-          required
-        />
-
-        <input
-          type="text"
-          name="apellido"
-          placeholder="Apellido"
-          [(ngModel)]="nuevoPaciente.apellido"
-          required
-        />
-
-        <input
-          type="number"
-          name="edad"
-          placeholder="Edad"
-          [(ngModel)]="nuevoPaciente.edad"
-          required
-        />
-
-        <input
-          type="text"
-          name="telefono"
-          placeholder="Teléfono"
-          [(ngModel)]="nuevoPaciente.telefono"
-          required
-        />
-
-        <button type="submit">
-          {{ editando ? 'Actualizar Paciente' : 'Guardar Paciente' }}
-        </button>
-
-        @if (editando) {
-          <button
-            type="button"
-            class="btn-cancelar"
-            (click)="cancelarEdicion()">
-            Cancelar
-          </button>
-        }
-
-      </form>
+  <!-- FONDO OSCURO AL ABRIR EL MENÚ -->
+  @if (menuAbierto) {
+    <div
+      class="menu-overlay"
+      (click)="alternarMenu()">
     </div>
   }
 
-  <table>
+  <!-- MENÚ LATERAL DINÁMICO -->
+  <aside
+    class="menu-lateral"
+    [class.menu-abierto]="menuAbierto">
 
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Edad</th>
-        <th>Teléfono</th>
+    <div class="menu-encabezado">
 
-        @if (esAdmin) {
-          <th>Acciones</th>
-        }
-      </tr>
-    </thead>
+      <h2>Clínicas</h2>
 
-    <tbody>
+      <button
+        type="button"
+        class="btn-cerrar-menu"
+        (click)="alternarMenu()">
+        ×
+      </button>
 
-      @for (paciente of pacientes; track paciente.id) {
+    </div>
 
-        <tr>
+    <div class="menu-contenido">
 
-          <td>{{ paciente.id }}</td>
-          <td>{{ paciente.nombre }}</td>
-          <td>{{ paciente.apellido }}</td>
-          <td>{{ paciente.edad }}</td>
-          <td>{{ paciente.telefono }}</td>
+      @for (modulo of accesos; track modulo.id) {
 
-          @if (esAdmin) {
-            <td>
+        <div class="menu-modulo">
 
-              <button
-                type="button"
-                class="btn-editar"
-                (click)="editarPaciente(paciente)">
-                Editar
-              </button>
+          <div class="menu-padre">
 
-              <button
-                type="button"
-                class="btn-eliminar"
-                (click)="eliminarPaciente(paciente.id!)">
-                Eliminar
-              </button>
+            <span class="material-symbols-outlined menu-icono">
+              {{ modulo.icono }}
+            </span>
 
-            </td>
+            <span>
+              {{ modulo.nombre }}
+            </span>
+
+          </div>
+
+          @if (modulo.hijos.length > 0) {
+
+            <div class="menu-hijos">
+
+              @for (hijo of modulo.hijos; track hijo.id) {
+
+                <button
+                  type="button"
+                  class="menu-opcion"
+                  (click)="irRuta(hijo.ruta)">
+
+                  <span class="material-symbols-outlined menu-icono">
+                    {{ hijo.icono }}
+                  </span>
+
+                  <span>
+                    {{ hijo.nombre }}
+                  </span>
+
+                </button>
+
+              }
+
+            </div>
+
+          } @else {
+
+            <button
+              type="button"
+              class="menu-opcion menu-opcion-principal"
+              (click)="irRuta(modulo.ruta)">
+
+              <span class="material-symbols-outlined menu-icono">
+                {{ modulo.icono }}
+              </span>
+
+              <span>
+                Ir a {{ modulo.nombre }}
+              </span>
+
+            </button>
+
           }
 
-        </tr>
+        </div>
+
+      } @empty {
+
+        <div class="sin-accesos">
+          No hay opciones disponibles.
+        </div>
 
       }
 
-    </tbody>
+    </div>
 
-  </table>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="contenedor">
+
+    <!-- ENCABEZADO -->
+    <div class="encabezado">
+
+      <div class="titulo-pagina">
+        <h1>Gestión de Pacientes</h1>
+      </div>
+
+      <button
+        type="button"
+        class="btn-cerrar-sesion"
+        (click)="cerrarSesion()">
+        Cerrar sesión
+      </button>
+
+    </div>
+
+    <!-- FORMULARIO ADMIN -->
+    @if (esAdmin) {
+
+      <div class="formulario">
+
+        <h2>
+          {{ editando ? 'Editar Paciente' : 'Nuevo Paciente' }}
+        </h2>
+
+        <form (ngSubmit)="guardarPaciente()">
+
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            [(ngModel)]="nuevoPaciente.nombre"
+            required
+          />
+
+          <input
+            type="text"
+            name="apellido"
+            placeholder="Apellido"
+            [(ngModel)]="nuevoPaciente.apellido"
+            required
+          />
+
+          <input
+            type="text"
+            name="dpi"
+            placeholder="DPI"
+            [(ngModel)]="nuevoPaciente.dpi"
+            required
+          />
+
+          <input
+            type="number"
+            name="edad"
+            placeholder="Edad"
+            [(ngModel)]="nuevoPaciente.edad"
+            required
+          />
+
+          <input
+            type="text"
+            name="telefono"
+            placeholder="Teléfono"
+            [(ngModel)]="nuevoPaciente.telefono"
+            required
+          />
+
+          <select
+            name="activo"
+            [(ngModel)]="nuevoPaciente.activo">
+
+            <option [ngValue]="true">
+              Activo
+            </option>
+
+            <option [ngValue]="false">
+              Inactivo
+            </option>
+
+          </select>
+
+          <button type="submit">
+            {{ editando ? 'Actualizar Paciente' : 'Guardar Paciente' }}
+          </button>
+
+          @if (editando) {
+
+            <button
+              type="button"
+              class="btn-cancelar"
+              (click)="cancelarEdicion()">
+              Cancelar
+            </button>
+
+          }
+
+        </form>
+
+      </div>
+
+    }
+
+    <!-- FILTROS -->
+    <div class="filtros">
+
+      <h2>Filtros</h2>
+
+      <div class="campos-filtros">
+
+        <div class="campo-filtro">
+
+          <label for="filtroNombre">
+            Nombre
+          </label>
+
+          <input
+            id="filtroNombre"
+            type="text"
+            name="filtroNombre"
+            placeholder="Buscar por nombre"
+            [(ngModel)]="filtroNombre"
+          />
+
+        </div>
+
+        <div class="campo-filtro">
+
+          <label for="filtroApellido">
+            Apellido
+          </label>
+
+          <input
+            id="filtroApellido"
+            type="text"
+            name="filtroApellido"
+            placeholder="Buscar por apellido"
+            [(ngModel)]="filtroApellido"
+          />
+
+        </div>
+
+        <div class="campo-filtro">
+
+          <label for="filtroDpi">
+            DPI
+          </label>
+
+          <input
+            id="filtroDpi"
+            type="text"
+            name="filtroDpi"
+            placeholder="Buscar por DPI"
+            [(ngModel)]="filtroDpi"
+          />
+
+        </div>
+
+        <div class="campo-filtro">
+
+          <label for="filtroActivo">
+            Estado
+          </label>
+
+          <select
+            id="filtroActivo"
+            name="filtroActivo"
+            [(ngModel)]="filtroActivo">
+
+            <option [ngValue]="null">
+              Todos
+            </option>
+
+            <option [ngValue]="true">
+              Activos
+            </option>
+
+            <option [ngValue]="false">
+              Inactivos
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="acciones-filtros">
+
+          <button
+            type="button"
+            class="btn-buscar"
+            (click)="buscarPacientes()">
+            Buscar
+          </button>
+
+          <button
+            type="button"
+            class="btn-limpiar"
+            (click)="limpiarFiltros()">
+            Limpiar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="resultados">
+
+      <div class="encabezado-resultados">
+
+        <h2>Resultados</h2>
+
+        <div class="selector-pagina">
+
+          <label for="tamanoPagina">
+            Registros por página:
+          </label>
+
+          <select
+            id="tamanoPagina"
+            name="tamanoPagina"
+            [(ngModel)]="tamanoPagina"
+            (ngModelChange)="cambiarTamanoPagina()">
+
+            @for (opcion of opcionesTamanoPagina; track opcion) {
+
+              <option [ngValue]="opcion">
+                {{ opcion }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <!-- TABLA -->
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DPI</th>
+            <th>Edad</th>
+            <th>Teléfono</th>
+            <th>Estado</th>
+
+            @if (esAdmin) {
+              <th>Acciones</th>
+            }
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          @for (paciente of pacientes; track paciente.id) {
+
+            <tr>
+
+              <td>{{ paciente.id }}</td>
+              <td>{{ paciente.nombre }}</td>
+              <td>{{ paciente.apellido }}</td>
+
+              <td>
+                {{ paciente.dpi || 'Sin DPI' }}
+              </td>
+
+              <td>{{ paciente.edad }}</td>
+              <td>{{ paciente.telefono }}</td>
+
+              <td>
+
+                @if (paciente.activo === true) {
+
+                  <span class="estado-activo">
+                    Activo
+                  </span>
+
+                } @else if (paciente.activo === false) {
+
+                  <span class="estado-inactivo">
+                    Inactivo
+                  </span>
+
+                } @else {
+
+                  <span>
+                    Sin estado
+                  </span>
+
+                }
+
+              </td>
+
+              @if (esAdmin) {
+
+                <td>
+
+                  <button
+                    type="button"
+                    class="btn-editar"
+                    (click)="editarPaciente(paciente)">
+                    Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn-eliminar"
+                    (click)="eliminarPaciente(paciente.id!)">
+                    Eliminar
+                  </button>
+
+                </td>
+
+              }
+
+            </tr>
+
+          } @empty {
+
+            <tr>
+
+              <td [attr.colspan]="esAdmin ? 8 : 7">
+                No se encontraron pacientes.
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+      <!-- PAGINACIÓN -->
+      <div class="paginacion">
+
+        <button
+          type="button"
+          (click)="paginaAnterior()"
+          [disabled]="!tieneAnterior">
+          Anterior
+        </button>
+
+        <span>
+
+          @if (totalPaginas > 0) {
+            Página {{ paginaActual + 1 }} de {{ totalPaginas }}
+          } @else {
+            Sin páginas
+          }
+
+        </span>
+
+        <button
+          type="button"
+          (click)="paginaSiguiente()"
+          [disabled]="!tieneSiguiente">
+          Siguiente
+        </button>
+
+        <span class="total-registros">
+          Total de pacientes: {{ totalRegistros }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

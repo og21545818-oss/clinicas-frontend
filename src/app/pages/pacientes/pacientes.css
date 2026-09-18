@@ -1,43 +1,274 @@
-.contenedor {
-  padding: 40px;
-  font-family: Arial, sans-serif;
+/* =========================
+   GENERAL
+========================= */
+
+* {
+  box-sizing: border-box;
 }
+
+.pagina {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+.contenedor {
+  padding: 40px 40px 40px 95px;
+  background-color: #ffffff;
+}
+
+/* =========================
+   BOTÓN HAMBURGER
+========================= */
+
+.btn-hamburger {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  z-index: 900;
+
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #24458f;
+  color: white;
+
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-hamburger:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   MENÚ LATERAL
+========================= */
+
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  left: -330px;
+
+  width: 310px;
+  height: 100vh;
+
+  z-index: 999;
+
+  background-color: #24458f;
+  color: white;
+
+  transition: left 0.25s ease;
+
+  overflow-y: auto;
+
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu-lateral.menu-abierto {
+  left: 0;
+}
+
+.menu-encabezado {
+  min-height: 85px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.menu-encabezado h2 {
+  margin: 0;
+  color: white;
+  font-size: 25px;
+}
+
+.btn-cerrar-menu {
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 6px;
+
+  background-color: rgba(255, 255, 255, 0.12);
+  color: white;
+
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.btn-cerrar-menu:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.menu-contenido {
+  padding: 15px 0;
+}
+
+/* =========================
+   MÓDULOS
+========================= */
+
+.menu-modulo {
+  margin-bottom: 8px;
+}
+
+.menu-padre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 20px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  color: white;
+}
+
+.menu-hijos {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-opcion {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 20px 12px 38px;
+
+  border: none;
+
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.88);
+
+  text-align: left;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.menu-opcion:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.menu-opcion-principal {
+  padding-left: 38px;
+}
+
+.menu-icono {
+  min-width: 24px;
+
+  font-size: 22px;
+  line-height: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sin-accesos {
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
 
 .encabezado {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 30px;
+}
+
+.titulo-pagina {
+  display: flex;
+  align-items: center;
 }
 
 h1 {
   color: #24458f;
   margin: 0;
+  font-size: 36px;
 }
 
+.btn-administracion,
 .btn-cerrar-sesion {
-  padding: 10px 18px;
+  padding: 11px 20px;
+
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+
   background: #24458f;
   color: white;
+
   cursor: pointer;
   font-size: 16px;
 }
 
+.btn-administracion {
+  margin-right: 10px;
+}
+
+.btn-administracion:hover,
 .btn-cerrar-sesion:hover {
   opacity: 0.9;
 }
 
+/* =========================
+   FORMULARIO PACIENTE
+========================= */
+
 .formulario {
   background: #f4f6f9;
-  padding: 20px;
+
+  padding: 25px;
   margin-bottom: 30px;
-  border-radius: 8px;
+
+  border-radius: 10px;
 }
 
 .formulario h2 {
   margin-top: 0;
+  margin-bottom: 20px;
+
   color: #24458f;
 }
 
@@ -45,56 +276,286 @@ h1 {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
-.formulario input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.formulario input,
+.formulario select {
+  height: 46px;
+
+  padding: 11px 12px;
+
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+
+  font-size: 15px;
+
+  background-color: white;
+}
+
+.formulario select {
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+  outline: none;
+  border-color: #24458f;
 }
 
 .formulario button {
-  padding: 10px 18px;
+  height: 46px;
+
+  padding: 11px 18px;
+
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+
   background: #24458f;
   color: white;
+
   cursor: pointer;
+  font-size: 15px;
 }
 
 .formulario button:hover {
   opacity: 0.9;
 }
 
+/* =========================
+   FILTROS
+========================= */
+
+.filtros {
+  background: #f4f6f9;
+
+  padding: 25px;
+  margin-bottom: 30px;
+
+  border-radius: 10px;
+}
+
+.filtros h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  color: #24458f;
+}
+
+.campos-filtros {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.campo-filtro {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.campo-filtro label {
+  font-weight: bold;
+  color: #333333;
+  font-size: 14px;
+}
+
+.campo-filtro input,
+.campo-filtro select {
+  width: 230px;
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+
+  background-color: white;
+
+  font-size: 15px;
+}
+
+.campo-filtro select {
+  width: 170px;
+  cursor: pointer;
+}
+
+.campo-filtro input:focus,
+.campo-filtro select:focus {
+  outline: none;
+  border-color: #24458f;
+}
+
+.acciones-filtros {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-buscar {
+  height: 42px;
+
+  padding: 0 22px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #24458f;
+  color: white;
+
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-limpiar {
+  height: 42px;
+
+  padding: 0 22px;
+
+  border: 1px solid #24458f;
+  border-radius: 6px;
+
+  background: white;
+  color: #24458f;
+
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-buscar:hover,
+.btn-limpiar:hover {
+  opacity: 0.85;
+}
+
+/* =========================
+   RESULTADOS
+========================= */
+
+.resultados {
+  margin-top: 10px;
+}
+
+.encabezado-resultados {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+
+  margin-bottom: 18px;
+}
+
+.encabezado-resultados h2 {
+  color: #24458f;
+  margin: 0;
+}
+
+/* =========================
+   SELECTOR TAMAÑO DE PÁGINA
+========================= */
+
+.selector-pagina {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.selector-pagina label {
+  font-size: 14px;
+  font-weight: bold;
+
+  color: #333333;
+}
+
+.selector-pagina select {
+  height: 40px;
+  min-width: 85px;
+
+  padding: 0 12px;
+
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+
+  background-color: white;
+  color: #333333;
+
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.selector-pagina select:focus {
+  outline: none;
+  border-color: #24458f;
+}
+
+/* =========================
+   TABLA
+========================= */
+
 table {
   width: 100%;
+
   border-collapse: collapse;
+
   background-color: white;
 }
 
 th,
 td {
-  padding: 12px;
-  border: 1px solid #ddd;
+  padding: 13px 15px;
+
+  border: 1px solid #dddddd;
+
   text-align: left;
 }
 
 th {
   background-color: #24458f;
   color: white;
+
+  font-weight: bold;
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f4f4f4;
 }
+
+tr:hover {
+  background-color: #eef2fa;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.estado-activo {
+  font-weight: 500;
+}
+
+.estado-inactivo {
+  font-weight: 500;
+}
+
+/* =========================
+   BOTONES TABLA
+========================= */
 
 .btn-editar {
   padding: 8px 14px;
+
   border: none;
   border-radius: 5px;
+
   background: #24458f;
   color: white;
+
   cursor: pointer;
+
   margin-right: 8px;
 }
 
@@ -104,13 +565,137 @@ tr:nth-child(even) {
 
 .btn-eliminar {
   padding: 8px 14px;
+
   border: none;
   border-radius: 5px;
+
   background: #c62828;
   color: white;
+
   cursor: pointer;
 }
 
 .btn-eliminar:hover {
   opacity: 0.9;
+}
+
+/* =========================
+   PAGINACIÓN
+========================= */
+
+.paginacion {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+  padding: 15px 0;
+
+  flex-wrap: wrap;
+}
+
+.paginacion button {
+  padding: 9px 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #24458f;
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.paginacion button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.paginacion button:disabled {
+  background: #cccccc;
+  color: #777777;
+
+  cursor: not-allowed;
+}
+
+.paginacion span {
+  font-size: 15px;
+  color: #333333;
+}
+
+.total-registros {
+  margin-left: auto;
+
+  font-weight: bold;
+
+  color: #24458f !important;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .contenedor {
+    padding: 95px 20px 20px 20px;
+  }
+
+  .btn-hamburger {
+    top: 20px;
+    left: 20px;
+  }
+
+  .menu-lateral {
+    width: 290px;
+    left: -310px;
+  }
+
+  .menu-lateral.menu-abierto {
+    left: 0;
+  }
+
+  .encabezado {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .campos-filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .campo-filtro input,
+  .campo-filtro select {
+    width: 100%;
+  }
+
+  .acciones-filtros {
+    width: 100%;
+  }
+
+  .btn-buscar,
+  .btn-limpiar {
+    flex: 1;
+  }
+
+  .encabezado-resultados {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selector-pagina {
+    width: 100%;
+  }
+
+  .total-registros {
+    margin-left: 0;
+  }
+
 }
