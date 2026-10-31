@@ -1,14 +1,17 @@
+
 <div class="login-container">
   <div class="login-card">
     <h1>Inicio de sesión</h1>
 
     <form (ngSubmit)="iniciarSesion()">
+
       <label for="username">Usuario</label>
       <input
         id="username"
         type="text"
         name="username"
         [(ngModel)]="username"
+        [disabled]="cargando"
         required
       />
 
@@ -18,14 +21,24 @@
         type="password"
         name="password"
         [(ngModel)]="password"
+        [disabled]="cargando"
         required
       />
 
-      <button type="submit">Ingresar</button>
+      <!-- CAPTCHA de Cloudflare Turnstile -->
+      <div
+        id="turnstile-container"
+        style="margin-top: 20px; display: flex; justify-content: center;">
+      </div>
+
+      <button type="submit" [disabled]="cargando">
+        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+      </button>
 
       @if (mensajeError) {
-        <p class="error">{{ mensajeError }}</p>
+        <p class="error" role="alert">{{ mensajeError }}</p>
       }
+
     </form>
   </div>
 </div>

@@ -1,3 +1,4 @@
+
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -35,6 +36,11 @@
   border-radius: 5px;
 }
 
+.login-card input:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
 .login-card button {
   width: 100%;
   padding: 11px;
@@ -47,12 +53,22 @@
   cursor: pointer;
 }
 
-.login-card button:hover {
+.login-card button:hover:not(:disabled) {
   opacity: 0.9;
+}
+
+.login-card button:disabled {
+  background: #8a9bbd;
+  cursor: not-allowed;
 }
 
 .error {
   color: #c62828;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 5px;
+  padding: 10px;
   text-align: center;
   margin-top: 15px;
+  font-size: 14px;
 }

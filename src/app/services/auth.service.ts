@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
@@ -21,10 +22,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<AuthResponse> {
+  login(
+    username: string,
+    password: string,
+    turnstileToken: string
+  ): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.apiUrl, {
       username,
-      password
+      password,
+      turnstileToken
     }).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
